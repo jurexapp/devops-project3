@@ -8,24 +8,24 @@
 #   apt:
 #     upgrade: yes
 
-- name: "dependencies"
-  become: yes
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+# - name: "dependencies"
+#   become: yes
+#   apt:
+#     name: ["nodejs", "npm"]
+#     state: latest
+#     update_cache: yes
 
 # - name: "Update node to the compactible version"
 #   shell: |
 #     curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs
 
-- name: "install pm2"
-  become: yes
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-    state: present
+# - name: "install pm2"
+#   become: yes
+#   npm:
+#     name: pm2
+#     global: yes
+#     production: yes
+#     state: present
 
 - name: "Create directory"
   file:
@@ -47,7 +47,7 @@
   become: yes
   shell: |
     npm install
-    npm run build
-    pm2 start npm --name 'udapeople' -- start
+    pm2 stop default
+    pm2 start npm -- start
   args:
     chdir: /home/ubuntu/udapeople
